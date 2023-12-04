@@ -3512,6 +3512,8 @@ details-disclosure > details {
   }
 }
 /* testing staging branch */
-.header__heading{
-  background-color: red;
+.color-swatch{
+  padding: 25px!important;
+  width: 50px;
+  height: 50px;
 }
