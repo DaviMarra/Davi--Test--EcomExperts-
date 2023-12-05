@@ -86,44 +86,44 @@
         {{- value -}}
       {%- endif %}
     </option>
-    {%- elsif block.settings.picker_type == 'custom' -%}
-      {% if option.name == 'Color' %}
-        <input
-          type="radio"
-          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-          name="{{ option.name }}"
-          value="{{ value | escape }}"
-          form="{{ product_form_id }}"
-          {% if option.selected_value == value %}
-            checked
-          {% endif %}
-          {% if option_disabled %}
-            class="disabled"
-          {% endif %}
-        >
-        <label class="color-swatch" 
-        style="background-image:url({{ value | append:'.png' | file_url }})" 
-        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-          <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
-        </label>
-      {% elsif option.name == 'Size' %}
-        <option
+  {%- elsif block.settings.picker_type == 'custom' -%}
+    {% if option.name == 'Color' %}
+      <input
+        type="radio"
+        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        name="{{ option.name }}"
         value="{{ value | escape }}"
+        form="{{ product_form_id }}"
         {% if option.selected_value == value %}
-          selected="selected"
+          checked
         {% endif %}
-        >
-          {% if option_disabled -%}
-            {{- 'products.product.value_unavailable' | t: option_value: value -}}
-          {%- else -%}
-            {{- value -}}
-          {%- endif %}
-        </option>
-      {% else %}
-          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-            {{ value -}}
-            <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
-          </label>
+        {% if option_disabled %}
+          class="disabled"
+        {% endif %}
+      >
+      <label class="color-swatch" 
+      style="background-image:url({{ value | append:'.png' | file_url }})" 
+      for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {% elsif option.name == 'Size' %}
+      <option
+      value="{{ value | escape }}"
+      {% if option.selected_value == value %}
+        selected="selected"
       {% endif %}
+      >
+        {% if option_disabled -%}
+          {{- 'products.product.value_unavailable' | t: option_value: value -}}
+        {%- else -%}
+          {{- value -}}
+        {%- endif %}
+      </option>
+    {% else %}
+      <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+        {{ value -}}
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {% endif %}
   {%- endif -%}
 {%- endfor -%}
