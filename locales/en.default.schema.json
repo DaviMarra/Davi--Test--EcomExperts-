@@ -847,11 +847,19 @@
         "quantity_selector": {
           "name": "Quantity selector"
         },
-        "variant_picker_pills": {
-          "name": "Variant picker Pills"
-        },
-        "variant_picker_dropdownw": {
-          "name": "Variant picker Dropdownw"
+        "variant_picker": {
+          "name": "Variant picker",
+          "settings": {
+            "picker_type": {
+              "label": "Type",
+              "options__1": {
+                "label": "Dropdown"
+              },
+              "options__2": {
+                "label": "Pills"
+              }
+            }
+          }
         },
         "buy_buttons": {
           "name": "Buy buttons",
@@ -1961,11 +1969,19 @@
         "quantity_selector": {
           "name": "Quantity selector"
         },
-        "variant_picker_pills": {
-          "name": "Variant picker Pills"
-        },
-        "variant_picker_dropdownw": {
-          "name": "Variant picker Dropdownw"
+        "variant_picker": {
+          "name": "Variant picker",
+          "settings": {
+            "picker_type": {
+              "label": "Type",
+              "options__1": {
+                "label": "Dropdown"
+              },
+              "options__2": {
+                "label": "Pills"
+              }
+            }
+          }
         },
         "buy_buttons": {
           "name": "Buy buttons",
