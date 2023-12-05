@@ -86,7 +86,7 @@
         {{- value -}}
       {%- endif %}
     </option>
-  {%- elsif block.settings.picker_type == 'custom' -%}
+  {%- elsif block.settings.picker_type == 'custom' -%}  {% comment %} new variant picker option condition {% endcomment %}
     {% if option.name == 'Color' %}
       <input
         type="radio"
