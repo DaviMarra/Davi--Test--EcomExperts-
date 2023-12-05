@@ -31,12 +31,6 @@
         {{ product.variants | json }}
       </script>
     </variant-radios>
-    
-    {%- if option.name == 'Size' -%}
-
-
-    {%- endif -%}
-
   {%- else -%}
     <variant-selects
       id="variant-selects-{{ section.id }}"
