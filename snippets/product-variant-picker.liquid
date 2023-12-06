@@ -21,8 +21,8 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-    {%- assign colorOption = product.options_with_values | where: 'name', "Color" -%}
-      {%- for option in product.options_with_values -%}
+    {%- assign colorOption = product.options | where:  "Color"  -%}
+      {%- for option in colorOption -%}
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options', product: product, option: option, block: block %}
@@ -43,8 +43,7 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-    {%- assign sizeOption = product.options_with_values | where: 'name', "Size" -%}
-
+    {%- assign sizeOption = product.options | where:  "Size"  -%}
       {%- for option in product.options_with_values -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
