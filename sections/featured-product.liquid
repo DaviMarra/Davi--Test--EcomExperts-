@@ -450,6 +450,13 @@
                   product_form_id: product_form_id,
                   update_url: false
                 %}
+              {%- when 'variant_picker2' -%}
+                {% render 'product-variant-picker',
+                  product: product,
+                  block: block,
+                  product_form_id: product_form_id,
+                  update_url: false
+                %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -818,6 +825,25 @@
             }
           ],
           "default": "button",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.label"
+        }
+      ]
+    },
+    {
+      "type": "variant_picker2",
+      "name": "Variant Picker 2",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            }
+          ],
+          "default": "dropdown",
           "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.label"
         }
       ]
