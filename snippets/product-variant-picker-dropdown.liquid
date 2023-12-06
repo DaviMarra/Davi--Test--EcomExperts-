@@ -9,10 +9,6 @@
   Usage:
   {% render 'product-variant-picker-dropdown', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
-<h1>{{ product }}</h1>
-<h1>{{ block }}</h1>
-<h1>{{ product_form_id }}</h1>
-<h1>teste</h1>
 {%- unless product.has_only_default_variant -%}
     <variant-selects
       id="variant-selects-{{ section.id }}"
@@ -24,9 +20,8 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-    <h1>teste</h1>
     {%- for option in product.options_with_values -%}
-      <h1>teste</h1>
+      {% if option.name == 'Size' %}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
@@ -43,6 +38,7 @@
             {% render 'icon-caret' %}
           </div>
         </div>
+      {% endif %}
     {%- endfor -%}
       <script type="application/json">
         {{ product.variants | json }}
