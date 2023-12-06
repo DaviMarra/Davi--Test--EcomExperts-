@@ -411,8 +411,8 @@
 
             {%- when 'variant_picker' -%}
               {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
-            {%- when 'variant_picker2' -%}
-              {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+            {%- when 'variant_picker_dropdown' -%}
+              {% render 'product-variant-picker-dropdown', product: product, block: block, product_form_id: product_form_id %}
             {%- when 'buy_buttons' -%}
               {%- render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true -%}
             {%- when 'rating' -%}
@@ -826,8 +826,8 @@
       ]
     },
     {
-      "type": "variant_picker2",
-      "name": "Variant Picker 2",
+      "type": "variant_picker_dropdown",
+      "name": "Variant Picker Dropdown",
       "limit": 1,
       "settings": [
         {
