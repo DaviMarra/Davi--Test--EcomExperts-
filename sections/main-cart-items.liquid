@@ -78,22 +78,27 @@
                   </th>
                 </tr>
               </thead>
-              {%- assign jacketAdded = false -%}
+              {% assign jacketAdded = false %}
+              {% assign softWinterJacketInCart = false %}
+              {% assign blackMediumHandbagInCart = false %}
+              
               <tbody>
                 {%- for item in cart.items -%}
-                  {% if jacketAdded == false %}
-                    {% if item.product.title == 'Handbag' %}
-                      {%- for option in item.options_with_values -%}
-                        {% if option.name == 'Color' and option.value == 'Black' %}
-                          {% for option in item.options_with_values %}
-                            {% if option.name == 'Size' and option.value == 'Medium' %}
+                  {% if item.product.title == 'Soft Winter Jacket' %}
+                    {% assign softWinterJacketInCart = true %}
+                  {% elsif item.product.title == 'Handbag' %}
+                    {%- for option in item.options_with_values -%}
+                      {% if option.name == 'Color' and option.value == 'Black' %}
+                        {% for option in item.options_with_values %}
+                          {% if option.name == 'Size' and option.value == 'Medium' %}
+                            {% assign blackMediumHandbagInCart = true %}
+                            {% if jacketAdded == false %}
                               <script>
                                 // Your AJAX code to add Product to the cart
                                 const productId = 44236350685441;
                                 const quantity = 1;
                                 let jacketAdded = false;
 
-                                console.log(`JAQUETA NAO ADICIONADA: ${jacketAdded}`)
                                 // Function to add Product to the cart
                                   
                                   function addProductToCart() {
@@ -119,21 +124,19 @@
                                       },
                                     });
                                     let jacketAdded = true;
-                                    console.log(`JAQUETA ADICIONADA: ${jacketAdded}`)
                                   }
                                   // Call the function to add Product to the cart
                                   if (jacketAdded === false){
-                                    console.log(`ENTRA NO IF: ${jacketAdded}`)
                                     addProductToCart();
                                   }
                               </script>
                             {% endif %}
-                          {% endfor %}
-                        {% endif %}
-                      {%- endfor -%}
-                    {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {%- endfor -%}
                   {% endif %}
-                  {%- assign jacketAdded = true -%}
+                  {% assign jacketAdded = true %}
                   <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                     <td class="cart-item__media">
                       {% if item.image %}
@@ -486,6 +489,31 @@
                   </tr>
                   
                 {%- endfor -%}
+                {% if softWinterJacketInCart == true and blackMediumHandbagInCart == false%}
+                  <script>
+                    console.log('INSIDE THE SCRIPT TO REMOVE')
+                    // AJAX code to remove the Soft Winter Jacket from the cart
+                    const jacketProductId = 44236350685441; // Replace with the actual product ID of the Soft Winter Jacket
+                    const data = {
+                      updates: {
+                        [jacketProductId]: 0, // Set the quantity to 0 to remove the item
+                      },
+                    };
+
+                    $.ajax({
+                      type: 'POST',
+                      url: '/cart/update.js',
+                      data: data,
+                      dataType: 'json',
+                      success: function() {
+                        location.reload(); // Reload the page after successful removal
+                      },
+                      error: function(XMLHttpRequest, textStatus) {
+                        console.error('Error removing Soft Winter Jacket from the cart: ' + textStatus);
+                      },
+                    });
+                  </script>
+                {% endif %}
               </tbody>
             </table>
           {%- endif -%}
