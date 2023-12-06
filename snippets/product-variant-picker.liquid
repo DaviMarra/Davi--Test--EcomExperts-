@@ -21,7 +21,8 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-      {%- for option in product.options_with_values -%}
+    {%- assign colorOption = product.options_with_values | where: 'name', "Color" -%}
+      {%- for option in colorOption -%}
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options', product: product, option: option, block: block %}
@@ -31,7 +32,7 @@
         {{ product.variants | json }}
       </script>
     </variant-radios>
-  {%- else -%}
+  {%- elsif block.settings.picker_type == 'dropdown' -%}
     <variant-selects
       id="variant-selects-{{ section.id }}"
       class="no-js-hidden"
@@ -42,7 +43,9 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-      {%- for option in product.options_with_values -%}
+    {%- assign sizeOption = product.options_with_values | where: 'name', "Size" -%}
+
+      {%- for option in sizeOption -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
