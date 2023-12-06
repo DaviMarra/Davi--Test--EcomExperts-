@@ -21,8 +21,7 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-    {%- assign colorOption = product.options | where:  "Color"  -%}
-      {%- for option in colorOption -%}
+      {%- for option in product.options_with_values -%}
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options', product: product, option: option, block: block %}
@@ -43,24 +42,25 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-    {%- assign sizeOption = product.options | where:  "Size"  -%}
-      {%- for option in product.sizeOption -%}
-        <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-            {{ option.name }}
-          </label>
-          <div class="select">
-            <select
-              id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="select__select"
-              name="options[{{ option.name | escape }}]"
-              form="{{ product_form_id }}"
-            >
-              {% render 'product-variant-options', product: product, option: option, block: block %}
-            </select>
-            {% render 'icon-caret' %}
+      {%- for option in product.options_with_values -%}
+        {%- if option.name == 'Size' or option.name == 'Color' -%}
+          <div class="product-form__input product-form__input--dropdown">
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+            <div class="select">
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}"
+              >
+                {% render 'product-variant-options', product: product, option: option, block: block %}
+              </select>
+              {% render 'icon-caret' %}
+            </div>
           </div>
-        </div>
+        {%- endif -%}
       {%- endfor -%}
 
       <script type="application/json">
@@ -69,6 +69,7 @@
     </variant-selects>
   {%- endif -%}
 {%- endunless -%}
+
 
 <noscript class="product-form__noscript-wrapper-{{ section.id }}">
   <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
