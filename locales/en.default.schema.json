@@ -1983,6 +1983,17 @@
             }
           }
         },
+        "variant_picker_dropdown": {
+          "name": "Variant picker dropdown",
+          "settings": {
+            "picker_type": {
+              "label": "Type",
+              "options__1": {
+                "label": "Dropdown"
+              }
+            }
+          }
+        },
         "buy_buttons": {
           "name": "Buy buttons",
           "settings": {

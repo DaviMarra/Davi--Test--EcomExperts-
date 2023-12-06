@@ -1,5 +1,5 @@
 {% comment %}
-  Renders product variant-picker
+  Renders product variant-picker-dropdown
 
   Accepts:
   - product: {Object} product object.
@@ -7,10 +7,13 @@
   - product_form_id: {String} Id of the product form to which the variant picker is associated.
   - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
   Usage:
-  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+  {% render 'product-variant-picker-dropdown', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
+<h1>{{ product }}</h1>
+<h1>{{ block }}</h1>
+<h1>{{ product_form_id }}</h1>
+<h1>teste</h1>
 {%- unless product.has_only_default_variant -%}
-  {%- if block.settings.picker_type == 'dropdown' -%}
     <variant-selects
       id="variant-selects-{{ section.id }}"
       class="no-js-hidden"
@@ -21,30 +24,30 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-      {%- for option in product.options_with_values -%}
-          <div class="product-form__input product-form__input--dropdown">
-            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-              {{ option.name }}
-            </label>
-            <div class="select">
-              <select
-                id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                class="select__select"
-                name="options[{{ option.name | escape }}]"
-                form="{{ product_form_id }}"
-              >
-                {% render 'product-variant-options', product: product, option: option, block: block %}
-              </select>
-              {% render 'icon-caret' %}
-            </div>
+    <h1>teste</h1>
+    {%- for option in product.options_with_values -%}
+      <h1>teste</h1>
+        <div class="product-form__input product-form__input--dropdown">
+          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <div class="select">
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options', product: product, option: option, block: block %}
+            </select>
+            {% render 'icon-caret' %}
           </div>
-      {%- endfor -%}
-
+        </div>
+    {%- endfor -%}
       <script type="application/json">
         {{ product.variants | json }}
       </script>
     </variant-selects>
-  {%- endif -%}
 {%- endunless -%}
 
 <noscript class="product-form__noscript-wrapper-{{ section.id }}">
