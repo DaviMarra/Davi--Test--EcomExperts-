@@ -3,6 +3,8 @@
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
   data-section="{{ section.id }}"
 >
+
+  {{ 'https://code.jquery.com/jquery-3.6.4.min.js' | script_tag }}
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -475,18 +477,20 @@
                             <div id="Slide-{{ block.id }}-{{ forloop.index }}" class="complementary-slide complementary-slide--{{ settings.card_style }} grid__item slider__slide slideshow__slide" tabindex="-1" role="group"{% if number_of_slides > 1 %} aria-roledescription="{{ 'sections.slideshow.slide' | t }}" aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"{% endif %}>
                               <ul class="list-unstyled" role="list">
                                 {%- for product in recommendations.products limit: block.settings.products_per_page offset: continue -%}
-                                  <li>
-                                    {% render 'card-product',
-                                      card_product: product,
-                                      media_aspect_ratio: block.settings.image_ratio,
-                                      show_secondary_image: false,
-                                      lazy_load: false,
-                                      show_quick_add: block.settings.enable_quick_add,
-                                      section_id: section.id,
-                                      horizontal_class: true,
-                                      horizontal_quick_add: true
-                                    %}
-                                  </li>
+                                  {% unless product.tags contains 'hidden' %}
+                                    <li>
+                                      {% render 'card-product',
+                                        card_product: product,
+                                        media_aspect_ratio: block.settings.image_ratio,
+                                        show_secondary_image: false,
+                                        lazy_load: false,
+                                        show_quick_add: block.settings.enable_quick_add,
+                                        section_id: section.id,
+                                        horizontal_class: true,
+                                        horizontal_quick_add: true
+                                      %}
+                                    </li>
+                                  {% endunless %}  
                                 {%- endfor -%}
                               </ul>
                             </div>
@@ -812,6 +816,10 @@
             {
               "value": "button",
               "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            },
+            {
+              "value": "custom",
+              "label": "Customized"
             }
           ],
           "default": "button",
