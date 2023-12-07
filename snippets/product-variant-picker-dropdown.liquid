@@ -21,8 +21,7 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-      {%- assign sizeOption = product.options | where:  "Size"  -%}
-      {%- for option in sizeOption -%}
+      {%- for option in product.options_with_values -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
