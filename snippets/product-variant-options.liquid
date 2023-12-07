@@ -75,18 +75,22 @@
       {% endif %}
 
   {%- elsif block.settings.picker_type == 'dropdown' -%}
-    <option
-      value="{{ value | escape }}"
-      {% if option_selected %}
-        selected="selected"
-      {% endif %}
-    >
-      {% if option_disabled -%}
-        {{- 'products.product.value_unavailable' | t: option_value: value -}}
-      {%- else -%}
-        {{- value -}}
-      {%- endif %}
-    </option>
+    {% if name.option == 'Size' %}
+      <option
+        value="{{ value | escape }}"
+        {% if option.selected_value == value %}
+          selected="selected"
+        {% endif %}
+      >
+        {% if option_disabled -%}
+          {{- 'products.product.value_unavailable' | t: option_value: value -}}
+        {%- else -%}
+          {{- value -}}
+        {%- endif %}
+      </option>
+    {% elsif option.name == 'Color' %}
+      {% comment %} Do nothing here since for Color we want buttons {% endcomment %}
+    {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
 
