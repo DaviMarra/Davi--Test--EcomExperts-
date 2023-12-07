@@ -34,15 +34,15 @@
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >
-            <option value="Medium">Medium</option>
+           {% comment %} <option value="Medium">Medium</option>
             <option value="Large">Large</option>
             {%- assign index = 0 -%}
-            {% comment %} {% for value in option.values %}
+             {% for value in option.values %}
               <option value="{{ option.values[index] }}" >{{ option.values[index] }}</option>
               {% assign index = index | plus: 1 %}
             {% endfor %} {% endcomment %}
             
-            {% comment %} {% render 'product-variant-options', product: product, option: option, block: block %} {% endcomment %}
+            {% render 'product-variant-options', product: product, option: option, block: block %}
             </select>
           {% render 'icon-caret' %}
           </div>
