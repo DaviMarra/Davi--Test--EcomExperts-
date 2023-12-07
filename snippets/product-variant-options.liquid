@@ -74,8 +74,9 @@
         <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
       </label>
     {% endif %}
-
-  {%- elsif block.settings.picker_type == 'dropdown' -%}
+  {%- else -%}
+    <h1>outside if {{ option.name }} </h1>
+    {% if option.name == 'Size' %}
       <option
         value="{{ value | escape }}"
         {% if option_selected %}
@@ -88,6 +89,9 @@
           {{- value -}}
         {%- endif %}
       </option>
+    {% elsif option.name == 'Color' %}
+      {% comment %} Do nothing {% endcomment %}
+    {% endif %}
   {%- endif -%}
 {%- endfor -%}
 

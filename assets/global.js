@@ -1023,7 +1023,6 @@ class VariantSelects extends HTMLElement {
   }
 
   updateVariantStatuses() {
-    console.log('inside function')
     const selectedOptionOneVariants = this.variantData.filter(
       (variant) => this.querySelector(':checked').value === variant.option1
     );
