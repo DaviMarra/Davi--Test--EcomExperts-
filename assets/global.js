@@ -1023,30 +1023,48 @@ class VariantSelects extends HTMLElement {
   }
 
   updateVariantStatuses() {
-    const selectedOptionOneVariants = this.variantData.filter(
-      (variant) => this.querySelector(':checked').value === variant.option1
-    );
+    const selectedOptionOne = this.getInputValue(this.querySelector('.product-form__input:first-of-type'));
+  
     const inputWrappers = [...this.querySelectorAll('.product-form__input')];
+    
     inputWrappers.forEach((option, index) => {
       if (index === 0) return;
-      const optionInputs = [...option.querySelectorAll('input[type="radio"], option')];
-      const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value;
-      const availableOptionInputsValue = selectedOptionOneVariants
+      
+      const inputElement = option.querySelector('input, select');
+      const previousOptionSelected = this.getInputValue(inputWrappers[index - 1]);
+  
+      const availableOptionValues = this.variantData
         .filter((variant) => variant.available && variant[`option${index}`] === previousOptionSelected)
         .map((variantOption) => variantOption[`option${index + 1}`]);
-      this.setInputAvailability(optionInputs, availableOptionInputsValue);
+      
+      this.setInputAvailability(inputElement, availableOptionValues);
     });
   }
-
-  setInputAvailability(listOfOptions, listOfAvailableOptions) {
-    listOfOptions.forEach((input) => {
-      if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
-        input.innerText = input.getAttribute('value');
-      } else {
-        input.innerText = window.variantStrings.unavailable_with_option.replace('[value]', input.getAttribute('value'));
+  
+  getInputValue(inputElement) {
+    if (inputElement.tagName === 'INPUT') {
+      return inputElement.value;
+    } else if (inputElement.tagName === 'SELECT') {
+      return inputElement.options[inputElement.selectedIndex].value;
+    }
+  
+    return null;
+  }
+  
+  setInputAvailability(inputElement, availableOptionValues) {
+    if (inputElement.tagName === 'INPUT') {
+      // Handle radio button availability
+      inputElement.disabled = !availableOptionValues.includes(inputElement.value);
+    } else if (inputElement.tagName === 'SELECT') {
+      // Handle select options availability
+      const options = inputElement.options;
+  
+      for (let i = 0; i < options.length; i++) {
+        options[i].disabled = !availableOptionValues.includes(options[i].value);
       }
-    });
+    }
   }
+  
 
   updatePickupAvailability() {
     const pickUpAvailability = document.querySelector('pickup-availability');
