@@ -22,6 +22,9 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
+<h1>------</h1>
+<h1>{{ block.settings }}</h1>
+<h1>{{ block.settings.picker_type_dropdown }}</h1>
 
 {%- for value in option.values -%}
   {%- liquid
