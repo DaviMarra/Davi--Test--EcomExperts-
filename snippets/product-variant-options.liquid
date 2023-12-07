@@ -76,7 +76,8 @@
     {% endif %}
 
   {%- elsif block.settings.picker_type == 'dropdown' -%}
-    {% if option.name == 'Color' %}
+    {% if option.name == 'Size' %}
+      <h1>entrei no if de size do dropdown</h1>
       <option
         value="{{ value | escape }}"
         {% if option_selected %}
