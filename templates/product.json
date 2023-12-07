@@ -26,12 +26,6 @@
             "picker_type": "button"
           }
         },
-        "eddb9e16-2a27-4fd2-9a2d-8f7b593ddc0c": {
-          "type": "variant_picker_dropdown",
-          "settings": {
-            "picker_type": "dropdown"
-          }
-        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {
@@ -61,7 +55,6 @@
         "title",
         "price",
         "variant_picker",
-        "eddb9e16-2a27-4fd2-9a2d-8f7b593ddc0c",
         "quantity_selector",
         "buy_buttons",
         "description",
