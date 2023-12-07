@@ -22,9 +22,6 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
-<h1>------</h1>
-<h1>{{ block.settings }}</h1>
-<h1>{{ block.settings.picker_type_dropdown }}</h1>
 
 {%- for value in option.values -%}
   {%- liquid
@@ -70,7 +67,7 @@
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
       </label>
     {% elsif option.name == 'Size' %}
-    
+      
     {% else %}  
       <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
         {{ value -}}
@@ -78,7 +75,7 @@
       </label>
     {% endif %}
   {%- else -%}
-    <h1>outside if {{ option.name }} </h1>
+  <h1>to aqui</h1>
     {% if option.name == 'Size' %}
       <option
         value="{{ value | escape }}"

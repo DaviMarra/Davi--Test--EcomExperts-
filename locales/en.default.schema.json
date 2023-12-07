@@ -1986,7 +1986,7 @@
         "variant_picker_dropdown": {
           "name": "Variant picker dropdown",
           "settings": {
-            "picker_type": {
+            "picker_type_dropdown": {
               "label": "Type",
               "options__1": {
                 "label": "Dropdown"
