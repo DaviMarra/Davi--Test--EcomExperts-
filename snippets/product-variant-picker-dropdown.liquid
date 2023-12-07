@@ -13,6 +13,7 @@
   {%- if block.settings.picker_type == 'dropdown' -%}
     {%- for option in product.options_with_values -%}
       {% if option.name == 'Size' %}
+        <h1>to dentro do if de Size {{ option.name }}</h1>
         <variant-selects
           id="variant-selects-{{ section.id }}"
           class="no-js-hidden"
