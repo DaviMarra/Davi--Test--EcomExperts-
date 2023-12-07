@@ -28,6 +28,7 @@
               {{ option.name }}
             </label>
           {% endif %}
+          {% if option.name == 'Size' %}
             <div class="select">
               <select
                 id="Option-{{ section.id }}-{{ forloop.index0 }}"
@@ -39,7 +40,7 @@
               </select>
               {% render 'icon-caret' %}
             </div>
-          
+          {% endif %}
           
         </div>
       {%- endfor -%}
