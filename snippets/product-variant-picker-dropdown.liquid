@@ -22,7 +22,6 @@
     >
     {%- for option in product.options_with_values -%}
       {% if option.name == 'Size' %}
-        <h1>{{ option.name }}</h1>
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
