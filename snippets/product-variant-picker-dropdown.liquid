@@ -23,9 +23,10 @@
     >
       {%- for option in product.options_with_values -%}
         <div class="product-form__input product-form__input--dropdown">
-            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-              {{ option.name }}
-            </label>
+          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <div class="select">
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
               class="select__select"
@@ -34,7 +35,8 @@
             >
               {% render 'product-variant-options', product: product, option: option, block: block %}
             </select>
-            {% render 'icon-caret' %}
+          {% render 'icon-caret' %}
+          </div>
         </div>
       {%- endfor -%}
       <script type="application/json">
