@@ -83,6 +83,8 @@
           selected="selected"
         {% endif %}
       >
+      <h1>option_disabled: {{ option_disabled }}</h1>
+      <h1>value: {{ value }}</h1>
         {% if option_disabled -%}
           {{- 'products.product.value_unavailable' | t: option_value: value -}}
         {%- else -%}
