@@ -78,7 +78,7 @@
     {% if name.option == 'Size' %}
       <option
         value="{{ value | escape }}"
-        {% if option.selected_value == value %}
+        {% if option_selected %}
           selected="selected"
         {% endif %}
       >
@@ -88,8 +88,6 @@
           {{- value -}}
         {%- endif %}
       </option>
-    {% elsif option.name == 'Color' %}
-      {% comment %} Do nothing here since for Color we want buttons {% endcomment %}
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
