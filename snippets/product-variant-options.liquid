@@ -52,6 +52,7 @@
     endfor
   -%}
   {% assign option_selected = forloop.first %}
+  {% assign option_selected = forloop.first %}
   {%- if block.settings.picker_type == 'button' -%}
     {% if option.name == 'Color' %}
       <input

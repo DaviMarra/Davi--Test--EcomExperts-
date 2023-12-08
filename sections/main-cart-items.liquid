@@ -6,6 +6,8 @@
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {{ 'https://code.jquery.com/jquery-3.6.4.min.js' | script_tag }}
 
+{{ 'https://code.jquery.com/jquery-3.6.4.min.js' | script_tag }}
+
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -487,6 +489,7 @@
                       </div>
                     </td>
                   </tr>
+                  
                   
                 {%- endfor -%}
                 {% if softWinterJacketInCart == true and blackMediumHandbagInCart == false%}
