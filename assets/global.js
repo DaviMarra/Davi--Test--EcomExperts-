@@ -1037,7 +1037,7 @@ class VariantSelects extends HTMLElement {
       this.setInputAvailability(optionInputs, availableOptionInputsValue);
     });
   }
-
+  
   setInputAvailability(listOfOptions, listOfAvailableOptions) {
     listOfOptions.forEach((input) => {
       if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
@@ -1046,7 +1046,7 @@ class VariantSelects extends HTMLElement {
         input.innerText = window.variantStrings.unavailable_with_option.replace('[value]', input.getAttribute('value'));
       }
     });
-  }
+  } 
 
   updatePickupAvailability() {
     const pickUpAvailability = document.querySelector('pickup-availability');
@@ -1199,7 +1199,7 @@ class VariantSelects extends HTMLElement {
 }
 
 customElements.define('variant-selects', VariantSelects);
-
+let count =0
 class VariantRadios extends VariantSelects {
   constructor() {
     super();
@@ -1218,8 +1218,18 @@ class VariantRadios extends VariantSelects {
   updateOptions() {
     const fieldsets = Array.from(this.querySelectorAll('fieldset'));
     this.options = fieldsets.map((fieldset) => {
-      return Array.from(fieldset.querySelectorAll('input')).find((radio) => radio.checked).value;
+      const checked = Array.from(fieldset.querySelectorAll('input')).find((radio) => {
+        return radio.checked
+      })
+      if(checked){
+        return checked.value
+      }
+      const selected = Array.from(fieldset.querySelectorAll('select')).find((select) => {
+        return select.options && Array.from(select.options).find((option) => option.selected)
+      })
+      return selected.value;
     });
+    count++
   }
 }
 
