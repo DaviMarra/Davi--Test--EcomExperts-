@@ -96,42 +96,55 @@
                             {% assign blackMediumHandbagInCart = true %}
                             {% if jacketAdded == false %}
                               <script>
-                                // Your AJAX code to add Product to the cart
                                 const productId = 44236350685441;
                                 const quantity = 1;
                                 let jacketAdded = false;
-
+                              
                                 // Function to add Product to the cart
-                                  
-                                  function addProductToCart() {
-                                    const data = {
-                                      items: [
-                                        {
-                                          id: productId,
-                                          quantity: quantity,
-                                        },
-                                      ],
-                                    };
-                                    $.ajax({
-                                      type: 'POST',
-                                      url: '/cart/add.js',
-                                      data: data,
-                                      dataType: 'json',
-                                      success: function() {
-                                        // Cart updated successfully
-                                        console.log('Product added to the cart');
+                                function addProductToCart() {
+                                  const data = {
+                                    items: [
+                                      {
+                                        id: productId,
+                                        quantity: quantity,
                                       },
-                                      error: function(XMLHttpRequest, textStatus) {
-                                        console.error('Error adding product to the cart: ' + textStatus);
-                                      },
+                                    ],
+                                  };
+                                  $.ajax({
+                                    type: 'POST',
+                                    url: '/cart/add.js',
+                                    data: data,
+                                    dataType: 'json',
+                                    success: function () {
+                                      // Cart updated successfully
+                                      // Trigger a custom event after the cart is updated
+                                      $(document).trigger('cartUpdated');
+                                      window.location.reload();
+                                    },
+                                    error: function (XMLHttpRequest, textStatus) {
+                                      console.error('Error adding product to the cart: ' + textStatus);
+                                    },
+                                  });
+                                  let jacketAdded = true;
+                                }
+                              
+                                // Listen for the custom event when the cart is updated
+                                $(document).on('cartUpdated', function () {
+                                  // Use setTimeout to ensure the cart is updated before checking it
+                                  setTimeout(function () {
+                                    // Fetch the updated cart data
+                                    jQuery.getJSON('/cart.js', function (cart) {
+                                      
                                     });
-                                    let jacketAdded = true;
-                                  }
-                                  // Call the function to add Product to the cart
-                                  if (jacketAdded === false){
-                                    addProductToCart();
-                                  }
+                                  }, 500); 
+                                });
+                              
+                                // Call the function to add Product to the cart
+                                if (jacketAdded === false) {
+                                  addProductToCart();
+                                }
                               </script>
+                              
                             {% endif %}
                           {% endif %}
                         {% endfor %}
@@ -489,33 +502,54 @@
                       </div>
                     </td>
                   </tr>
-                  
-                  
                 {%- endfor -%}
                 {% if softWinterJacketInCart == true and blackMediumHandbagInCart == false%}
                   <script>
-                    console.log('INSIDE THE SCRIPT TO REMOVE')
-                    // AJAX code to remove the Soft Winter Jacket from the cart
-                    const jacketProductId = 44236350685441; // Replace with the actual product ID of the Soft Winter Jacket
-                    const data = {
-                      updates: {
-                        [jacketProductId]: 0, // Set the quantity to 0 to remove the item
-                      },
-                    };
+                    const jacketProductId = 44236350685441;
+                    let jacketRemoved = false;
 
-                    $.ajax({
-                      type: 'POST',
-                      url: '/cart/update.js',
-                      data: data,
-                      dataType: 'json',
-                      success: function() {
-                        location.reload(); // Reload the page after successful removal
-                      },
-                      error: function(XMLHttpRequest, textStatus) {
-                        console.error('Error removing Soft Winter Jacket from the cart: ' + textStatus);
-                      },
+                    // Function to remove Product from the cart
+                    function removeJacketFromCart() {
+                      const data = {
+                        updates: {
+                          [jacketProductId]: 0, // Set the quantity to 0 to remove the item
+                        },
+                      };
+                      $.ajax({
+                        type: 'POST',
+                        url: '/cart/update.js',
+                        data: data,
+                        dataType: 'json',
+                        success: function () {
+                          // Cart updated successfully
+                          // Trigger a custom event after the cart is updated
+                          $(document).trigger('cartUpdated');
+                          window.location.reload(); // Reload the page after successful removal
+                        },
+                        error: function (XMLHttpRequest, textStatus) {
+                          console.error('Error removing Soft Winter Jacket from the cart: ' + textStatus);
+                        },
+                      });
+                      jacketRemoved = true;
+                    }
+
+                    // Listen for the custom event when the cart is updated
+                    $(document).on('cartUpdated', function () {
+                      // Use setTimeout to ensure the cart is updated before checking it
+                      setTimeout(function () {
+                        // Fetch the updated cart data
+                        jQuery.getJSON('/cart.js', function (cart) {
+                          
+                        });
+                      }, 500);
                     });
+
+                    // Call the function to remove Jacket from the cart
+                    if (!jacketRemoved) {
+                      removeJacketFromCart();
+                    }
                   </script>
+
                 {% endif %}
               </tbody>
             </table>
