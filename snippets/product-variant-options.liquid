@@ -52,7 +52,6 @@
     endfor
   -%}
   {% assign option_selected = forloop.first %}
-  {% assign option_selected = forloop.first %}
   {%- if block.settings.picker_type == 'button' -%}
     {% if option.name == 'Color' %}
       <input
@@ -80,6 +79,15 @@
           selected="selected"
         {% endif %}
       >
+      {% if value == 'Unselected' %}
+        {% comment %} make button unavailable {% endcomment %}
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            let button = document.querySelector(".add-to-cart-button");
+            button.disabled = true
+          });
+        </script>
+      {% endif %}
         {% if option_disabled -%}
           {{- 'products.product.value_unavailable' | t: option_value: value -}}
         {%- else -%}
